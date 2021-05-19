@@ -41,9 +41,10 @@ NSString* removeRepeatedChar(NSString *string){
     NSRegularExpressionOptions regOpt = NSRegularExpressionCaseInsensitive; //создаем с опциями в любом регистре
     //создаем само регулярное выражение на основе паттерна
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:regOpt error:nil];
-    //получаем строку в которой все совпадения паттерна заменяются на указанное значение (в моем случае любые повторяющиеся пробелы табуляции и тд, заменяются одним пробелом)
+    //получаем массив с совпадениями
     NSArray *matches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
     NSMutableString *mutString = [NSMutableString new];
+    //пробегаемся по всем совпадениям и берем информацию о позиции и длинне вхождения паттерна
     for (NSTextCheckingResult *result in matches) {
         NSRange firstHalfRange = [result rangeAtIndex:1];
         NSString *sds = [string substringWithRange:NSMakeRange(firstHalfRange.location + 1, 1)];
